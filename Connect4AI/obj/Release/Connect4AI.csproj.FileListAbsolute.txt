@@ -1,0 +1,9 @@
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\bin\Release\Connect4AI.exe.config
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\bin\Release\Connect4AI.exe
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\bin\Release\Connect4AI.pdb
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Release\Connect4AI.csprojResolveAssemblyReference.cache
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Release\Connect4AI.Form1.resources
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Release\Connect4AI.Properties.Resources.resources
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Release\Connect4AI.csproj.GenerateResource.Cache
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Release\Connect4AI.exe
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Release\Connect4AI.pdb

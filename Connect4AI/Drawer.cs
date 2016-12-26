@@ -58,7 +58,6 @@ namespace Connect4AI
             int height = (gamePanel.Width / 7)-10;
             g.DrawEllipse(pen, startX, startY, width, height);
             g.FillEllipse(solidBrush, startX, startY, width, height);
-            
         }
     }
 }

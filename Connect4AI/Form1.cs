@@ -78,6 +78,14 @@ namespace Connect4AI
             drawer.DrawGrid(this.gamePanel);
         }
 
+        private void restartButton_Click(object sender, EventArgs e)
+        {
+            game.Restart();
+            drawer.DrawGrid(gamePanel);
+            gameOver = false;
+            label2.Visible = false;
+        }
+
         
     }
 }

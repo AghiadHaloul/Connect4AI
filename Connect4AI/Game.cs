@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
+
 namespace Connect4AI
 {
-    class Game
+    public class Game
     {
+        public int max_depth = 5;
         public char[,] gird = new char[6,7];
         public int[] top = new int[7];
-        //private char[,] grid;
+        public int[] score = new int[7];
+        public static Random rnd;
         public void Reset()
         {
             for (int j = 0; j < 7; j++)
@@ -67,20 +71,107 @@ namespace Connect4AI
                     }
                 }
             }
-            bool draw = true;
+            int emptyCellsAtTopRow = 0;
             for (int j = 0; j < 7; j++)
             {
-                if (this.top[j] != -1)
+                if(this.gird[0,j]!='-')
                 {
-                    draw = false;
+                    emptyCellsAtTopRow++;
                 }
             }
-            if (draw == true)
+            if (emptyCellsAtTopRow == 7)
             {
                 return "draw";
             }
             return "";
         }
+        public void AddDisk(int row,int column,char c)
+        {
+            this.gird[row, column] = c;
+            this.top[column]--;
+        }
+        public void RemoveDisk(int row,int column)
+        {
+            this.gird[row,column]='-';
+            this.top[column]++;
+        }
+        public int CalcMove(Connect4AI.Form1 ourForm)
+        {
+            int maxRet = -int.MaxValue;
+            int move=-1;
+            for (int i = 0; i < 7; i++)
+            {
+                int row = this.top[i];
+                if (row >= 0)
+                {
+                    score[i] = Minimax(row, i, 'r', 1, ourForm);
 
+                    if (score[i] > maxRet)
+                    {
+                        maxRet = score[i];
+                        move = i;
+                    }
+                }
+            }
+            Program.theForm.UpdateLabels(score);
+            return move;
+        }
+        //public int row = game.top[column];
+        public int Minimax(int row, int column, char colorChar,int depth, Connect4AI.Form1 ourForm)
+        {
+            
+            if (depth == max_depth)
+                return 0;
+            AddDisk(row, column, colorChar);
+            int inputRow = row, inputColumn = column,ret = 0;
+            if (CheckWinner() == "RED")
+            {
+                ret=1;
+                RemoveDisk(inputRow, inputColumn);
+                for (int i = max_depth-depth; i > 0; i--)
+                {
+                    ret *= 10;
+                }
+                return ret;
+            }
+            else if (CheckWinner() == "YELLOW")
+            {
+                ret=-1;
+                RemoveDisk(inputRow, inputColumn);
+                for (int i = max_depth - depth; i > 0; i--)
+                {
+                    ret *= 10;
+                }
+                return ret;
+            }
+            else if (CheckWinner() == "")
+            {
+                
+                char color;
+                if (colorChar == 'r')
+                {
+                    color = 'y';    
+                }
+                else
+                {
+                    color = 'r';
+                }
+                for (int i = 0; i < 7; i++)
+                {
+                    row = this.top[i];
+                    if (row >= 0)
+                    {
+                        ret = ret+Minimax(row, i, color,depth+1, ourForm);
+                    }
+                }
+                RemoveDisk(inputRow, inputColumn);
+                return ret;
+            }
+            else
+            {
+                RemoveDisk(inputRow, inputColumn);
+                return 0;
+            }
+        }
     }
 }

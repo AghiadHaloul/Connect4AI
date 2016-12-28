@@ -7,3 +7,4 @@ C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\bin\Debug\Connect4AI.exe
 C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\bin\Debug\Connect4AI.pdb
 C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Debug\Connect4AI.exe
 C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Debug\Connect4AI.pdb
+C:\Users\Ghido\Documents\GitHub\Connect4AI\Connect4AI\obj\Debug\Connect4AI.SelectPlayers.resources

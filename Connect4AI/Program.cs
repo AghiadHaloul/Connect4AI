@@ -8,6 +8,8 @@ namespace Connect4AI
 {
     static class Program
     {
+        public static Form1 theForm = new Form1();
+        public static SelectPlayers selectionForm = new SelectPlayers();
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -15,8 +17,8 @@ namespace Connect4AI
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+           // Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new SelectPlayers());
         }
     }
 }

@@ -12,11 +12,12 @@ namespace Connect4AI
 {
     public partial class Form1 : Form
     {
-        Game game;
-        Drawer drawer = new Drawer();
+        public Game game;
+        public Drawer drawer = new Drawer();
         bool red = false, gameOver = false;
         int counter = 0;
-        
+        public int mode = 0;
+        public int diff;
         public Form1()
         {
             InitializeComponent();
@@ -25,12 +26,43 @@ namespace Connect4AI
         {
             game = new Game();
             drawer.DrawGrid(this.gamePanel);
+            LocateLabels();
+            SetDifficulty(diff);
         }
         private void button1_Click(object sender, EventArgs e)
         {
             drawer.DrawGrid(this.gamePanel);
         }
-
+        public void LocateLabels()
+        {
+            int x = gamePanel.Location.X+((gamePanel.Width / 14) / 2);
+            int y = Convert.ToInt32( 6.80 * (gamePanel.Width / 7));
+            gainLabel.Location = new Point(10, y);
+            c1label.Location = new Point(x, y);
+            x += (gamePanel.Width / 7) + 5;
+            c2label.Location = new Point(x, y);
+            x += (gamePanel.Width / 7) + 5;
+            c3label.Location = new Point(x, y);
+            x += (gamePanel.Width / 7) + 5;
+            c4label.Location = new Point(x, y);
+            x += (gamePanel.Width / 7) + 5;
+            c5label.Location = new Point(x, y);
+            x += (gamePanel.Width / 7) + 5;
+            c6label.Location = new Point(x, y);
+            x += (gamePanel.Width / 7) + 5;
+            c7label.Location = new Point(x, y);
+            x += (gamePanel.Width / 7) + 5;
+        }
+        public void UpdateLabels(int [] arr)
+        {
+            c1label.Text = arr[0].ToString();
+            c2label.Text = arr[1].ToString();
+            c3label.Text = arr[2].ToString();
+            c4label.Text = arr[3].ToString();
+            c5label.Text = arr[4].ToString();
+            c6label.Text = arr[5].ToString();
+            c7label.Text = arr[6].ToString();
+        }
         private void gamePanel_MouseClick(object sender, MouseEventArgs e)
         {
             if (gameOver == true) 
@@ -43,20 +75,73 @@ namespace Connect4AI
                 MessageBox.Show("This column is full!");
                 return;
             }
-            if(red==true)
+            switch (this.mode)
             {
-                drawer.AddDisk(column, row, Color.Red);
+                case 0:
+                    Cursor.Current = Cursors.WaitCursor;
+                    playerVsAI(column, row);
+                    Cursor.Current = Cursors.Default;
+                    break;
+                case 1:
+                    playerVsPlayer(column, row);
+                    break;
+                case 2:
+                    aiVsAi();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        public bool check()
+        {
+            string check = game.CheckWinner();
+            if (check != "")
+            {
+                if (check == "draw")
+                {
+                    label2.Text = "Draw";
+                }
+                else
+                {
+                    label2.Text = check + " WON!!";
+                }
+                label2.Visible = true;
+                gameOver = true;
+                return true;
+            }
+            return false;
+        }
+        
+        public void playerVsAI(int column, int row)
+        {
+            drawer.DrawDisk(column, row, Color.Yellow,false);
+            game.AddDisk(row, column, 'y');
+            if (check() == true)
+                return;
+            column = game.CalcMove(this);
+            row = game.top[column];
+            drawer.DrawDisk(column, row, Color.Red,true);
+            game.AddDisk(row, column, 'r');
+            check();       
+        }
+        public void playerVsPlayer(int column, int row)
+        {
+
+            if (red == true)
+            {
+                drawer.DrawDisk(column, row, Color.Red,false);
                 red = false;
-                game.gird[row, column] = 'r';
+                game.AddDisk(row, column, 'r');
             }
             else
             {
-                drawer.AddDisk(column, row, Color.Yellow);
+                drawer.DrawDisk(column, row, Color.Yellow, false);
                 red = true;
-                game.gird[row, column] = 'y';
+                game.AddDisk(row, column, 'y');
             }
             string check = game.CheckWinner();
-            if(check!="")
+            if (check != "")
             {
                 if (check == "draw")
                 {
@@ -69,10 +154,11 @@ namespace Connect4AI
                 label2.Visible = true;
                 gameOver = true;
             }
-            game.top[column]--;
-            
         }
-
+        public void aiVsAi()
+        {
+            //TODO
+        }
         private void gamePanel_Paint(object sender, PaintEventArgs e)
         {
             drawer.DrawGrid(this.gamePanel);
@@ -85,7 +171,10 @@ namespace Connect4AI
             gameOver = false;
             label2.Visible = false;
         }
-
+        public void SetDifficulty(int depth)
+        {
+            game.max_depth = depth;
+        }
         
     }
 }

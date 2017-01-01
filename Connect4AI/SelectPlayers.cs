@@ -27,31 +27,26 @@ namespace Connect4AI
         private void button1_Click(object sender, EventArgs e)
         {
             ViewGameForm(0,2);
-            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             ViewGameForm(1,-1);
-            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             ViewGameForm(2,6);
-            this.Hide();
         }
 
         private void mediumButton_Click(object sender, EventArgs e)
         {
             ViewGameForm(0, 3);
-            this.Hide();
         }
 
         private void hardButton_Click(object sender, EventArgs e)
         {
             ViewGameForm(0, 5);
-            this.Hide();
         }
 
         private void exitButton_Click(object sender, EventArgs e)

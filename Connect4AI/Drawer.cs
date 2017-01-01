@@ -15,6 +15,19 @@ namespace Connect4AI
         Pen pen;
         SolidBrush solidBrush;
         System.Windows.Forms.Panel gamePanel;
+
+        private void updateLogFile(int row, int column, bool player)
+        {
+            using (StreamWriter sw = new StreamWriter(@"E:\Work\4th Year - 1st Semestre\Mathematical Programming\Project\Connect4AI\Connect4AI\logfile.txt", true))
+            {
+                sw.AutoFlush = true;
+                if (player == true)
+                    sw.WriteLine("Player chose position (" + row + "," + column + ")");
+                else
+                    sw.WriteLine("Computer chose position (" + row + "," + column + ")");
+                sw.Flush();
+            }
+        }
         
         public void DrawGrid(System.Windows.Forms.Panel panel)
         {
@@ -80,12 +93,7 @@ namespace Connect4AI
                 g.DrawEllipse(pen, startX, startY, width, height);
                 g.DrawEllipse(pen, startX, startY, width, height);
                 g.FillEllipse(solidBrush, startX, startY, width, height);
-                using (StreamWriter sw = new StreamWriter(@"E:\Work\4th Year - 1st Semestre\Mathematical Programming\Project\Connect4AI\Connect4AI\logfile.txt", true))
-                {
-                    sw.AutoFlush = true;
-                    sw.WriteLine("Player chose position (" + row + "," + column + ")");
-                    sw.Flush();
-                }
+                updateLogFile(row, column, false);
                 return;
             }
             
@@ -122,13 +130,7 @@ namespace Connect4AI
             solidBrush = new SolidBrush(color);
             g.DrawEllipse(pen, startX, startY, width, height);
             g.FillEllipse(solidBrush, startX, startY, width, height);
-
-            using (StreamWriter sw = new StreamWriter(@"E:\Work\4th Year - 1st Semestre\Mathematical Programming\Project\Connect4AI\Connect4AI\logfile.txt", true))
-            {
-                sw.AutoFlush = true;
-                sw.WriteLine("Computer chose position (" + row + "," + column + ")");
-                sw.Flush();
-            }
+            updateLogFile(row, column, true);
         }
     }
 }

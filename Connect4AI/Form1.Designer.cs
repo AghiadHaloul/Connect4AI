@@ -61,6 +61,7 @@
             this.infoLabel.TabIndex = 4;
             this.infoLabel.Text = "Click a column to add a disk.";
             this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.infoLabel.Click += new System.EventHandler(this.infoLabel_Click);
             // 
             // label2
             // 
@@ -177,7 +178,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(830, 811);
+            this.ClientSize = new System.Drawing.Size(830, 651);
             this.Controls.Add(this.gainLabel);
             this.Controls.Add(this.c7label);
             this.Controls.Add(this.c6label);
@@ -193,6 +194,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Connect 4";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

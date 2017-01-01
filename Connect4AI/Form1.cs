@@ -127,7 +127,6 @@ namespace Connect4AI
         }
         public void playerVsPlayer(int column, int row)
         {
-
             if (red == true)
             {
                 drawer.DrawDisk(column, row, Color.Red,false);
@@ -171,6 +170,17 @@ namespace Connect4AI
             gameOver = false;
             label2.Visible = false;
         }
+
+        private void infoLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
         public void SetDifficulty(int depth)
         {
             game.max_depth = depth;

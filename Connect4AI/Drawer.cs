@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
 namespace Connect4AI
 {
     public class Drawer
@@ -29,15 +30,15 @@ namespace Connect4AI
                 for(int j=0;j<7;j++)
                 {
                     DrawGridBrick(startX, startY, width, height, Color.Blue, "Rectangle");
-                    if (Program.theForm.game.gird[i, j] == '-')
+                    if (Program.theForm.game.grid[i, j] == '-')
                     {
                         DrawGridBrick(startX + 5, startY + 5, width - 10, height - 10, Color.White, "Ellipse");
                     }
-                    if (Program.theForm.game.gird[i, j] == 'r')
+                    if (Program.theForm.game.grid[i, j] == 'r')
                     {
                         DrawGridBrick(startX + 5, startY + 5, width - 10, height - 10, Color.Red, "Ellipse");
                     }
-                    if (Program.theForm.game.gird[i, j] == 'y')
+                    if (Program.theForm.game.grid[i, j] == 'y')
                     {
                         DrawGridBrick(startX + 5, startY + 5, width - 10, height - 10, Color.Yellow, "Ellipse");
                     }
@@ -63,6 +64,7 @@ namespace Connect4AI
         }
         public void DrawDisk(int column, int row, Color color,bool AI)
         {
+
             int startX;
             int startY;
             int width;
@@ -78,9 +80,15 @@ namespace Connect4AI
                 g.DrawEllipse(pen, startX, startY, width, height);
                 g.DrawEllipse(pen, startX, startY, width, height);
                 g.FillEllipse(solidBrush, startX, startY, width, height);
+                using (StreamWriter sw = new StreamWriter(@"E:\Work\4th Year - 1st Semestre\Mathematical Programming\Project\Connect4AI\Connect4AI\logfile.txt", true))
+                {
+                    sw.AutoFlush = true;
+                    sw.WriteLine("Player chose position (" + row + "," + column + ")");
+                    sw.Flush();
+                }
                 return;
             }
-
+            
             pen = new Pen(Color.Red);
             solidBrush = new SolidBrush(Color.Red);
             startX = column * (gamePanel.Width / 7) + 5;
@@ -115,7 +123,12 @@ namespace Connect4AI
             g.DrawEllipse(pen, startX, startY, width, height);
             g.FillEllipse(solidBrush, startX, startY, width, height);
 
-            
+            using (StreamWriter sw = new StreamWriter(@"E:\Work\4th Year - 1st Semestre\Mathematical Programming\Project\Connect4AI\Connect4AI\logfile.txt", true))
+            {
+                sw.AutoFlush = true;
+                sw.WriteLine("Computer chose position (" + row + "," + column + ")");
+                sw.Flush();
+            }
         }
     }
 }

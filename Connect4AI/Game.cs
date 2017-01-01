@@ -11,10 +11,9 @@ namespace Connect4AI
     public class Game
     {
         public int max_depth = 5;
-        public char[,] gird = new char[6,7];
+        public char[,] grid = new char[6,7];
         public int[] top = new int[7];
         public int[] score = new int[7];
-        public static Random rnd;
         public void Reset()
         {
             for (int j = 0; j < 7; j++)
@@ -25,7 +24,7 @@ namespace Connect4AI
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    this.gird[i,j] = '-';
+                    this.grid[i,j] = '-';
                 }
             }
         }
@@ -47,19 +46,19 @@ namespace Connect4AI
                     row = column = diagR = diagL = "";
                     for (int k = j,c=0; k < 7 && c<4; k++,c++)
                     {
-                        row += this.gird[i, k];
+                        row += this.grid[i, k];
                     }
                     for (int k = i,c=0; k < 6&& c<4; k++,c++)
                     {
-                        column += this.gird[k, j];
+                        column += this.grid[k, j];
                     }
                     for (int k = 0,c=0; k < 4 && i + k < 6 && j + k < 7 && c<4; k++,c++)
                     {
-                        diagR += this.gird[i + k, j + k];
+                        diagR += this.grid[i + k, j + k];
                     }
                     for (int k = 0,c=0; k < 4 && i + k < 6 && j - k >= 0 && c<4; k++,c++)
                     {
-                        diagL += this.gird[i + k, j - k];
+                        diagL += this.grid[i + k, j - k];
                     }
                     if (row.Contains("rrrr") == true || column.Contains("rrrr") == true || diagR.Contains("rrrr") == true || diagL.Contains("rrrr") == true)
                     {
@@ -71,15 +70,15 @@ namespace Connect4AI
                     }
                 }
             }
-            int emptyCellsAtTopRow = 0;
+            int occupiedCellsAtTopRow = 0;
             for (int j = 0; j < 7; j++)
             {
-                if(this.gird[0,j]!='-')
+                if(this.grid[0,j]!='-')
                 {
-                    emptyCellsAtTopRow++;
+                    occupiedCellsAtTopRow++;
                 }
             }
-            if (emptyCellsAtTopRow == 7)
+            if (occupiedCellsAtTopRow == 7)
             {
                 return "draw";
             }
@@ -87,12 +86,12 @@ namespace Connect4AI
         }
         public void AddDisk(int row,int column,char c)
         {
-            this.gird[row, column] = c;
+            this.grid[row, column] = c;
             this.top[column]--;
         }
         public void RemoveDisk(int row,int column)
         {
-            this.gird[row,column]='-';
+            this.grid[row,column]='-';
             this.top[column]++;
         }
         public int CalcMove(Connect4AI.Form1 ourForm)
@@ -105,7 +104,6 @@ namespace Connect4AI
                 if (row >= 0)
                 {
                     score[i] = Minimax(row, i, 'r', 1, ourForm);
-
                     if (score[i] > maxRet)
                     {
                         maxRet = score[i];
@@ -119,7 +117,6 @@ namespace Connect4AI
         //public int row = game.top[column];
         public int Minimax(int row, int column, char colorChar,int depth, Connect4AI.Form1 ourForm)
         {
-            
             if (depth == max_depth)
                 return 0;
             AddDisk(row, column, colorChar);
@@ -146,7 +143,6 @@ namespace Connect4AI
             }
             else if (CheckWinner() == "")
             {
-                
                 char color;
                 if (colorChar == 'r')
                 {
